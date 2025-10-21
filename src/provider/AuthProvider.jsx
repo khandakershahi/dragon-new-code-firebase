@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import app from '../firebase/firebase.config';
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { FaLeaf } from 'react-icons/fa';
 
 export const AuthContext = createContext();
 // Initialize Firebase Authentication and get a reference to the service
@@ -10,15 +11,19 @@ const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
 
-    console.log(user);
-    
+    const [loading, setLoading] = useState(true)
+
+    console.log(loading, user);
+
 
 
     const createUser = (email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
-    const logIn = ( email, password) => {
+    const logIn = (email, password) => {
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
@@ -28,13 +33,14 @@ const AuthProvider = ({ children }) => {
 
 
     useEffect(() => {
-      const unsubscribe =  onAuthStateChanged(auth, (currentUser) => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
+            setLoading(false)
         })
         return () => {
             unsubscribe();
         }
-    },[])
+    }, [])
 
     const authData = {
         user,
@@ -42,6 +48,8 @@ const AuthProvider = ({ children }) => {
         createUser,
         logIn,
         logOut,
+        loading,
+        setLoading,
 
     }
 
