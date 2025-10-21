@@ -11,7 +11,7 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    console.log(locaiton);
+    // console.log(locaiton);
 
 
     const handleLogin = (e) => {
@@ -20,7 +20,7 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        console.log({ email, password });
+        // console.log({ email, password });
         logIn(email, password)
             .then((result) => {
                 const user = result.user;
