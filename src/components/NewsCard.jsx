@@ -62,7 +62,7 @@ const NewsCard = ({ news }) => {
                     {details.length > 200 ? (
                         <>
                             {details.slice(0, 200)}...
-                            <Link to={`/news/${id}`} className="text-primary font-semibold">
+                            <Link to={`/news-details/${id}`} className="text-warning font-semibold flex">
                                 Read More
                             </Link>
                         </>
