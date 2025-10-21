@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import app from '../firebase/firebase.config';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 import { FaLeaf } from 'react-icons/fa';
 
 export const AuthContext = createContext();
@@ -27,6 +27,10 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
 
+    const updateUser = (updateData) => {
+        return updateProfile(auth.currentUser, updateData)
+    }
+
     const logOut = () => {
         return signOut(auth);
     }
@@ -50,6 +54,7 @@ const AuthProvider = ({ children }) => {
         logOut,
         loading,
         setLoading,
+        updateUser,
 
     }
 
